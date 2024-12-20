@@ -40,20 +40,20 @@ router.get('/', async (req, res, next) => {
 })
 
 // Add a new item
-router.post('/', upload.single('file'), async (req, res,next) => {
+router.post('/', upload.single('file'), async (req, res, next) => {
   try {
-    //Step 3: task 1 - insert code here
+    // Step 3: task 1 - insert code here
     const db = await connectToDatabase()
-    //Step 3: task 2 - insert code here
+    // Step 3: task 2 - insert code here
     const collection = db.collection('secondChanceItems')
-    //Step 3: task 3 - insert code here
-    const lastItemQuery = await collection.find().sort({'id': -1}).limit(1)
-    //Step 3: task 4 - insert code here
+    // Step 3: task 3 - insert code here
+    const lastItemQuery = await collection.find().sort({ id: -1 }).limit(1)
+    // Step 3: task 4 - insert code here
     let secondChanceItem = req.body
     await lastItemQuery.forEach(item => {
       secondChanceItem.id = (parseInt(item.id) + 1).toString()
-    });
-    //Step 3: task 5 - insert code here
+    })
+    // Step 3: task 5 - insert code here
     const date_added = Math.floor(new Date().getTime() / 1000)
     secondChanceItem.date_added = date_added
 
