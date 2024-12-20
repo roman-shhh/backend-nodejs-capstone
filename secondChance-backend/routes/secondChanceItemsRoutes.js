@@ -1,7 +1,7 @@
 const express = require('express')
 const multer = require('multer')
-const path = require('path')
-const fs = require('fs')
+// const path = require('path')
+// const fs = require('fs')
 const router = express.Router()
 const connectToDatabase = require('../models/db')
 const logger = require('../logger')
@@ -12,10 +12,10 @@ const directoryPath = 'public/images'
 // Set up storage for uploaded files
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, directoryPath); // Specify the upload directory
+    cb(null, directoryPath) // Specify the upload directory
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname); // Use the original file name
+    cb(null, file.originalname) // Use the original file name
   }
 })
 
@@ -23,15 +23,15 @@ const upload = multer({ storage: storage })
 
 // Get all secondChanceItems
 router.get('/', async (req, res, next) => {
-  logger.info('/ called');
+  logger.info('/ called')
   try {
-    //Step 2: task 1 - insert code here
+    // Step 2: task 1 - insert code here
     const db = await connectToDatabase()
-    //Step 2: task 2 - insert code here
+    // Step 2: task 2 - insert code here
     const collection = db.collection('secondChanceItems')
-    //Step 2: task 3 - insert code here
+    // Step 2: task 3 - insert code here
     const secondChanceItems = await collection.find({}).toArray()
-    //Step 2: task 4 - insert code here
+    // Step 2: task 4 - insert code here
     res.json(secondChanceItems)
   } catch (e) {
     logger.console.error('oops something went wrong', e)
@@ -40,7 +40,7 @@ router.get('/', async (req, res, next) => {
 })
 
 // Add a new item
-router.post('/', upload.single('file'), async(req, res,next) => {
+router.post('/', upload.single('file'), async (req, res,next) => {
   try {
     //Step 3: task 1 - insert code here
     const db = await connectToDatabase()
